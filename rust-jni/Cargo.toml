@@ -5,6 +5,7 @@ authors = ["Geoffroy Couprie <geo.couprie@gmail.com>"]
 
 [dependencies]
 libc = "*"
+jni-sys = "^0.1.0"
 inrustwetrust = { path = "../inrustwetrust" }
 
 [lib]
