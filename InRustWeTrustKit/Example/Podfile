@@ -1,11 +1,11 @@
 use_frameworks!
 
 target 'InRustWeTrustKit_Example' do
-  pod 'InRustWeTrustKit', :path => '../'
+  pod 'InRustWeTrustKit', :path => '../../'
 
-  target 'InRustWeTrustKit_Tests' do
-    inherit! :search_paths
+#  target 'InRustWeTrustKit_Tests' do
+#    inherit! :search_paths
 
     
-  end
+#  end
 end

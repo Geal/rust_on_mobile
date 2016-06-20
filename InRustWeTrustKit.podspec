@@ -21,16 +21,16 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-  s.homepage         = 'https://github.com/<GITHUB_USERNAME>/InRustWeTrustKit'
+  s.homepage         = 'https://github.com/Geal/rust_on_mobile'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Geoffroy Couprie' => 'geo.couprie@gmail.com' }
-  s.source           = { :git => 'https://github.com/<GITHUB_USERNAME>/InRustWeTrustKit.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/Geal/rust_on_mobile.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
 
-  s.source_files = 'InRustWeTrustKit/Classes/**/*'
+  s.source_files = 'InRustWeTrustKit/InRustWeTrustKit/Classes/**/*'
   
   # s.resource_bundles = {
   #   'InRustWeTrustKit' => ['InRustWeTrustKit/Assets/*.png']
@@ -39,4 +39,16 @@ TODO: Add long description of the pod here.
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
   # s.dependency 'AFNetworking', '~> 2.3'
+  s.prepare_command = <<-CMD
+    BASEPATH="${PWD}"
+    echo "Building inrustwetrust library..."
+    cd inrustwetrust && cargo build && cargo lipo
+    cd "${BASEPATH}"
+    mkdir -p lib
+    cp inrustwetrust/target/universal/debug/* lib/
+    rm -rf InRustWeTrustKit/InRustWeTrustKit/Classes/inrustwetrust
+    cp -r inrustwetrust/include InRustWeTrustKit/InRustWeTrustKit/Classes/inrustwetrust
+  CMD
+
+  s.ios.vendored_libraries = "lib/libinrustwetrust.a"
 end
