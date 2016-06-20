@@ -1,0 +1,13 @@
+[package]
+name = "inrustwetrust"
+version = "0.1.0"
+authors = ["Geoffroy Couprie <geo.couprie@gmail.com>"]
+build = "build.rs"
+
+
+[build-dependencies]
+rusty-cheddar = "0.3.0"
+
+[lib]
+name = "inrustwetrust"
+crate-type = ["staticlib", "rlib"]
