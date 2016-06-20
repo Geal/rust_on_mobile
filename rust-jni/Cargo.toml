@@ -1,0 +1,12 @@
+[package]
+name = "jni"
+version = "0.1.0"
+authors = ["Geoffroy Couprie <geo.couprie@gmail.com>"]
+
+[dependencies]
+libc = "*"
+inrustwetrust = { path = "../inrustwetrust" }
+
+[lib]
+name = "inrustwetrust"
+crate-type = ["dylib"]
