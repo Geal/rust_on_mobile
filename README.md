@@ -129,3 +129,18 @@ target/debug/inrustwetrust.ll:9:133: error: expected value token
 ```
 
 So it looks like right now, it's impossible to generate an iOS library from Rust using the bitcode format.
+
+## Exception unwinding is apparently incompatible between Rust and ObjectiveC because of compact unwinding
+
+Linking the app can fail with the following error:
+
+```
+ld: too many personality routines for compact unwind to encode for architecture x86_64
+```
+
+This can be fixed by passing `-Wl,-keep_dwarf_unwind -Wl,-no_compact_unwind` as "other linker flags".
+From what I understand, Objective C has a different exception unwinding system that is not using
+the dwarf based one like Rust.
+
+Another idea would be to remove exception unwinding from the rust code, with a `panic=abort`, but
+that means any exception would generate a crash in the Rust code, which is not a great solution.
